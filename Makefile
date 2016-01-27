@@ -10,23 +10,26 @@ CHAINS=Chains/*.cpp
 
 EXECUTABLE=cpu
 
-all: goals strats tactics chains main
+all: goals2 strats2 tactics2 chains2 main
 	$(CC) $(LDFLAGS) *.o -o $(EXECUTABLE)
 
 main:
 	$(CC) $(CFLAGS) $(SOURCES)
 
-goals:
+goals2:
 	$(CC) $(CFLAGS) $(GOALS)
 
-strats:
+strats2: 
 	$(CC) $(CFLAGS) $(STRATS)
 
-tactics:
+tactics2:
 	$(CC) $(CFLAGS) $(TACTICS)
 
-chains:
+chains2: 
 	$(CC) $(CFLAGS) $(CHAINS)
+
 
 clean:
 	rm -f *.o */*.o *.d */*.d cpu
+
+
