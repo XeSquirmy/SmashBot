@@ -9,8 +9,6 @@ TACTICS=Tactics/*.cpp
 CHAINS=Chains/*.cpp
 SOURCES=cpu.cpp Controller.cpp GameState.cpp MemoryWatcher.cpp
 
-
-
 SOURCES=cpu.o Controller.o GameState.o MemoryWatcher.o
 STRATS=Strategies/Bait.o
 TACTICS=Tactics/CloseDistance.o Tactics/Edgeguard.o Tactics/Laser.o Tactics/Parry.o Tactics/Punish.o Tactics/Recover.o Tactics/ShineCombo.o Tactics/Wait.o
@@ -18,38 +16,40 @@ CHAINS=Chains/EdgeAction.o Chains/EdgeStall.o Chains/FireFox.o Chains/FullJump.o
 GOALS=Goals/KillOpponent.o Goals/NavigateMenu.o
 EXECUTABLE=cpu
 
-# all: goals2 strats2 tactics2 chains2 main
-# 	$(CC) $(LDFLAGS) *.o -o $(EXECUTABLE)
 
 
 
 
 all: $(GOALS) $(STRATS) $(TACTICS) $(CHAINS) $(SOURCES)
-	echo "done everything, just going to print compile the executable $(STRATS)"
 	$(CC) $(LDFLAGS) -o $(EXECUTABLE) *.o */*.o
 
 main:
 	$(CC) $(CFLAGS) $(SOURCES)
 
 Goals/%.o: Goals/%.cpp
-	echo "going to compile $< into $@"
 	$(CC) $(CFLAGS) $< -o $@
 
 Strategies/%.o: Strategies/%.cpp
-	echo "going to compile $< into $@"
 	$(CC) $(CFLAGS) $< -o $@
 
 Tactics/%.o: Tactics/%.cpp
-	echo "going to compile $< into $@"
 	$(CC) $(CFLAGS) $< -o $@
 
 Chains/%.o: Chains/%.cpp
-	echo "going to compile $< into $@"
 	$(CC) $(CFLAGS) $< -o $@
 
 %.o: %.cpp
-	echo "inside the normal base folder"
 	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm -f *.o */*.o *.d */*.d $(EXECUTABLE)
+	rm -f ./*/*.o
+
+
+
+
+# all: goals2 strats2 tactics2 chains2 main
+# 	$(CC) $(LDFLAGS) *.o -o $(EXECUTABLE)
 
 # main:
 # 	$(CC) $(CFLAGS) $(SOURCES)
@@ -65,10 +65,4 @@ Chains/%.o: Chains/%.cpp
 
 # chains2: 
 # 	$(CC) $(CFLAGS) $(CHAINS) 
-
-
-clean:
-	rm -f *.o */*.o *.d */*.d $(EXECUTABLE)
-	rm -f ./*/*.o
-
 
