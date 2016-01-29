@@ -26,7 +26,7 @@ EXECUTABLE=cpu
 
 all: $(GOALS) $(STRATS) $(TACTICS) $(CHAINS) $(SOURCES)
 	echo "done everything, just going to print compile the executable $(STRATS)"
-	$(CC) $(LDFLAGS) -o cpu *.o */*.o
+	$(CC) $(LDFLAGS) -o $(EXECUTABLE) *.o */*.o
 
 main:
 	$(CC) $(CFLAGS) $(SOURCES)
