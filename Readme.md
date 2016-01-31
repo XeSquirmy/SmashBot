@@ -68,4 +68,4 @@ https://github.com/dolphin-emu/dolphin - If you want to play on the dolphin netp
 4. Run `./cpu`
 5. Run dolphin and start up Melee.
 6. Move focus over to the dolphin window. (Or else turn on background input on the controller) Just click on the dolphin window to do this.
-7. Set player 1 to Marth. The CPU will choose its own character.  Set the stage to Final Destination. Start the match.
+7. If using the Netplay Gecko code, exit the character select screen (CSS), and re-enter the CSS. The CPU will choose its own character. Select your character as Marth. Set the stage to Final Destination. Start the match.
