@@ -5,13 +5,15 @@
 #include "Bait.h"
 #include "../Constants.h"
 #include "../Tactics/CloseDistance.h"
-#include "../Tactics/Wait.h"
-#include "../Tactics/Parry.h"
-#include "../Tactics/ShineCombo.h"
-#include "../Tactics/Laser.h"
+#include "../Tactics/DI.h"
 #include "../Tactics/Edgeguard.h"
-#include "../Tactics/Recover.h"
+#include "../Tactics/Laser.h"
+#include "../Tactics/Parry.h"
 #include "../Tactics/Punish.h"
+#include "../Tactics/Recover.h"
+#include "../Tactics/ShieldPressure.h"
+#include "../Tactics/ShineCombo.h"
+#include "../Tactics/Wait.h"
 
 Bait::Bait()
 {
@@ -20,7 +22,6 @@ Bait::Bait()
     m_lastAction = (ACTION)m_state->m_memory->player_one_action;
     m_shieldedAttack = false;
     m_actionChanged = true;
-    m_chargingLastFrame = false;
     m_lastActionCount = 0;
 }
 
@@ -46,22 +47,6 @@ void Bait::DetermineTactic()
         {
             m_state->setLandingState(false);
         }
-    }
-
-    //Has opponent just released a sharged smash attack?
-    bool m_chargedSmashReleased = false;
-    if(!m_state->m_memory->player_one_charging_smash && m_chargingLastFrame)
-    {
-        m_chargedSmashReleased = true;
-    }
-    m_chargingLastFrame = m_state->m_memory->player_one_charging_smash;
-
-    //So, turns out that the game changes the player's action state (to 2 or 3) on us when they're charging
-    //If this happens, just change it back. Maybe there's a more elegant solution
-    if(m_state->m_memory->player_one_action == 0x02 ||
-        m_state->m_memory->player_one_action == 0x03)
-    {
-        m_state->m_memory->player_one_action = m_lastAction;
     }
 
     //Update the attack frame if the enemy started a new action
@@ -239,13 +224,13 @@ void Bait::DetermineTactic()
             if(isAttacking((ACTION)m_state->m_memory->player_one_action))
             {
                 //If the p1 action changed, scrap the old Parry and make a new one.
-                if(m_actionChanged || m_chargedSmashReleased)
+                if(m_actionChanged)
                 {
                     delete m_tactic;
                     m_tactic = NULL;
                 }
 
-                CreateTactic(Parry);
+                CreateTactic2(Parry, m_attackFrame);
                 m_tactic->DetermineChain();
                 return;
             }
@@ -291,7 +276,14 @@ void Bait::DetermineTactic()
     //If we're in close and p2 is sheilding, just wait
     if(m_state->m_memory->player_one_action == ACTION::SHIELD)
     {
-        CreateTactic(Wait);
+        CreateTactic(ShieldPressure);
+        m_tactic->DetermineChain();
+        return;
+    }
+    //Implement Smash DI (Beta)
+    if(m_state->m_memory->player_two_hitlag_frames_left > 0)
+    {
+        CreateTactic(DI);
         m_tactic->DetermineChain();
         return;
     }
