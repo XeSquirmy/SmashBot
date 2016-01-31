@@ -280,6 +280,7 @@ void Bait::DetermineTactic()
         m_tactic->DetermineChain();
         return;
     }
+    //"I'm shot!" - John Lennon
     //Implement Smash DI (Beta)
     if(m_state->m_memory->player_two_hitlag_frames_left > 0)
     {
