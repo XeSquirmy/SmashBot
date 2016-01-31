@@ -8,12 +8,14 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include <csignal>
 
 #include "Goals/KillOpponent.h"
 #include "Goals/NavigateMenu.h"
 
 #include "GameState.h"
 #include "MemoryWatcher.h"
+#include "Controller.h"
 
 void FirstTimeSetup()
 {
@@ -139,24 +141,6 @@ void PrintState(GameState* state)
         std::cout << "p2 not invulnerable" << std::endl;
     }
 
-    if(state->m_memory->player_one_charging_smash)
-    {
-        std::cout << "p1 charging a smash" << std::endl;
-    }
-    else
-    {
-        std::cout << "p1 not charging a smash" << std::endl;
-    }
-
-    if(state->m_memory->player_two_charging_smash)
-    {
-        std::cout << "p2 charging a smash" << std::endl;
-    }
-    else
-    {
-        std::cout << "p2 not charging a smash" << std::endl;
-    }
-
     std::cout << "p1 hitlag frames left: " << state->m_memory->player_one_hitlag_frames_left << std::endl;
     std::cout << "p2 hitlag frames left: " << state->m_memory->player_two_hitlag_frames_left << std::endl;
 
@@ -199,6 +183,14 @@ void PrintState(GameState* state)
     std::cout << "p2 speed x ground self: " << state->m_memory->player_two_speed_ground_x_self << std::endl;
 }
 
+void signalControllerReset(int sigtype)
+{
+    Controller *m_controller = Controller::Instance();
+    m_controller->emptyInput();
+    std::cout << "Received SIGINT: Reseting controller settings..." << std::endl;
+    exit(sigtype);
+}
+
 int main()
 {
     //Do some first-time setup
@@ -211,7 +203,7 @@ int main()
     //Get our goal
     Goal *goal = NULL;
     MENU current_menu;
-
+    signal(SIGINT, signalControllerReset);
     //Main frame loop
     for(;;)
     {
