@@ -63,6 +63,7 @@ The level 11 CPU is an AI that plays Super Smash Bros: Melee inside the Dolphin 
 
 1. Get a build of dolphin from source (dolphin version must be >= 4.0-8501 (commit afde6ae)). You can find it here:
 https://github.com/dolphin-emu/dolphin
+
 1a. If you want to play on the dolphin netplay build (7840), follow instructions from here - https://github.com/xesquirmy/dolphin-7840-memorywatcher
 2. Configure your controller settings for player 1 and player 2. You will play as Player 1, the CPU will take Player 2. You'll probably want a GameCube controller adapter. Configuring controller settings is out of the scope of this document, but check out the file `GCPadNew.ini` provided here for an example controller config that ought to work. Just stick that in your Dolphin config directory.
 3. Build the CPU code by just running make. `make` There shouldn't be any dependencies to download. (Other than Dolphin)
