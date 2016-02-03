@@ -6,7 +6,6 @@ void SpotDodge::PressButtons()
     //If we're medium range or more, and reverse-facing, don't bother doing anything.
     float distance = std::abs(m_state->m_memory->player_one_x - m_state->m_memory->player_two_x);
     if(m_isReverseFacing && (distance > 18))
-<<<<<<< HEAD
     {
         m_controller->emptyInput();
         return;
@@ -15,8 +14,6 @@ void SpotDodge::PressButtons()
     if(m_state->m_memory->player_two_action == SHIELD ||
         m_state->m_memory->player_two_action == SHIELD_START ||
         m_state->m_memory->player_two_action == SHIELD_REFLECT)
-=======
->>>>>>> 7eada1c... Support parrying charged smashes
     {
         m_hasShielded = true;
     }
@@ -28,13 +25,12 @@ void SpotDodge::PressButtons()
         return;
     }
 
-<<<<<<< HEAD
     if(!m_hasSpotDodged && m_state->m_memory->player_two_action == SHIELD_REFLECT)
     {
         m_controller->tiltAnalog(Controller::BUTTON_MAIN, .5, 0);
         m_hasSpotDodged = true;
         return;
-=======
+    }
     switch(m_state->m_memory->player_one_action_frame)
     {
         case 1:
@@ -57,7 +53,6 @@ void SpotDodge::PressButtons()
             m_controller->releaseButton(Controller::BUTTON_L);
             break;
         }
->>>>>>> 7eada1c... Support parrying charged smashes
     }
 
     m_controller->emptyInput();
@@ -75,12 +70,9 @@ bool SpotDodge::IsInterruptible()
 
 SpotDodge::SpotDodge()
 {
-<<<<<<< HEAD
     m_startingFrame = m_state->m_memory->frame;
     m_hasShielded = false;
     m_hasSpotDodged = false;
-=======
->>>>>>> 7eada1c... Support parrying charged smashes
     bool player_one_is_to_the_left = (m_state->m_memory->player_one_x - m_state->m_memory->player_two_x > 0);
     if(m_state->m_memory->player_one_facing != player_one_is_to_the_left)
     {
