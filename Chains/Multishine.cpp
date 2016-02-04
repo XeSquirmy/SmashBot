@@ -17,6 +17,10 @@ bool Multishine::IsInterruptible()
     {
         return true;
     }
+    if(m_hitlagPresent == true)
+    {
+        return false;
+    }
     return false;
 }
 

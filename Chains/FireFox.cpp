@@ -7,6 +7,7 @@ void FireFox::PressButtons()
     if(m_state->m_memory->player_two_jumps_left > 0)
     {
         //If so, jump at the edge
+        //TODO:Determine best option to choose jump here or save it for after the firefox
         if(!m_pressedJump)
         {
             m_pressedJump = true;

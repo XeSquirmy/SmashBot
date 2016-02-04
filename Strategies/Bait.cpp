@@ -301,9 +301,20 @@ void Bait::DetermineTactic()
     }
     //"I'm shot!" - John Lennon
     //Implement Smash DI (Beta)
-    if(m_state->m_memory->player_two_hitlag_frames_left > 0)
+    if(m_state->m_memory->player_two_hitlag_frames_left > 0 &&
+        (m_state->m_memory->player_two_action != ACTION::SHIELD ||
+        m_state->m_memory->player_two_action != ACTION::DOWN_B_STUN))
     {
         CreateTactic(DI);
+        m_tactic->DetermineChain();
+        return;
+    }
+    //Implement Tech Rolling
+    if(m_state->m_memory->player_two_hitstun_frames_left > 0 &&
+        m_state->m_memory->player_two_action == ACTION::FALLING)
+    {//(m_state->m_memory->player_two_y >
+        CreateTactic(Techroll);
+        std::cout << "Player2.Y.val: " << m_state->m_memory->player_two_y << std::endl;
         m_tactic->DetermineChain();
         return;
     }

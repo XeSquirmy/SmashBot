@@ -1,4 +1,5 @@
 #include <typeinfo>
+#include <iostream>
 #include <math.h>
 #include <cmath>
 
@@ -8,6 +9,7 @@
 #include "../Chains/EdgeAction.h"
 #include "../Chains/EdgeStall.h"
 #include "../Chains/FireFox.h"
+#include "../Chains/Illusion.h"
 
 Recover::Recover()
 {
@@ -57,10 +59,16 @@ void Recover::DetermineChain()
     //If we're off the stage...
     if(std::abs(m_state->m_memory->player_two_x) > m_state->getStageEdgeGroundPosition() + .001)
     {
-        if(m_state->m_memory->player_two_y > 0 &&
-          m_state->m_memory->player_two_y < 10)
+        bool isOnRight = m_state->m_memory->player_one_x > 0;
+        if(m_state->m_memory->player_two_y > 0 && m_state->m_memory->player_two_y < 10 &&
+            (m_state->m_memory->player_one_action != EDGE_HANGING || 
+            m_state->m_memory->player_one_action != EDGE_ROLL_SLOW ||
+            m_state->m_memory->player_one_action != EDGE_ATTACK_SLOW ||
+            m_state->m_memory->player_one_action != EDGE_GETUP_SLOW))
         {
-            //Side-B back to the stage
+            CreateChain3(Illusion, isOnRight, 0);
+            m_chain->PressButtons();
+            return;
         }
         else
         {
