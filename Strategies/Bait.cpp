@@ -13,6 +13,7 @@
 #include "../Tactics/Recover.h"
 #include "../Tactics/ShieldPressure.h"
 #include "../Tactics/ShineCombo.h"
+#include "../Tactics/Techroll.h"
 #include "../Tactics/Wait.h"
 
 Bait::Bait()
@@ -292,7 +293,7 @@ void Bait::DetermineTactic()
         m_tactic->DetermineChain();
         return;
     }
-    //If we're in close and p2 is sheilding, just wait
+    //If we're in close and p2 is shielding, apply shield pressure
     if(m_state->m_memory->player_one_action == ACTION::SHIELD)
     {
         CreateTactic(ShieldPressure);
@@ -310,12 +311,22 @@ void Bait::DetermineTactic()
         return;
     }
     //Implement Tech Rolling
-    if(m_state->m_memory->player_two_hitstun_frames_left > 0 &&
-        m_state->m_memory->player_two_action == ACTION::FALLING)
-    {//(m_state->m_memory->player_two_y >
+    if(m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_HIGH || 
+        m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_NEUTRAL ||
+        m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_LOW ||
+        m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_TOP ||
+        m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_ROLL ||
+        m_state->m_memory->player_two_action == ACTION::DAMAGE_FALL)
+    {
+        std::cout << "Attempting to Tech" << std::endl;
         CreateTactic(Techroll);
-        std::cout << "Player2.Y.val: " << m_state->m_memory->player_two_y << std::endl;
         m_tactic->DetermineChain();
+        return;
+    }
+    if(m_state->m_memory->player_two_action == ACTION::DOWNBOUND_UP ||
+        m_state->m_memory->player_two_action == ACTION::DOWNBOUND_DOWN)
+    {
+        std::cout << "I have failed at life" << std::endl;
         return;
     }
     //TODO: For now, just default to waiting if nothing else fits

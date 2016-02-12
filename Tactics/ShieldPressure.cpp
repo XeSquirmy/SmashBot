@@ -6,6 +6,9 @@ ShieldPressure::ShieldPressure()
 {
     m_chain = NULL;
     m_startingFrame = m_state->m_memory->frame;
+    crazyMultishine = 0;
+    shieldMultishine = 1;
+    normalMultishine = 2;
 }
 
 ShieldPressure::~ShieldPressure()
@@ -15,6 +18,12 @@ ShieldPressure::~ShieldPressure()
 
 void ShieldPressure::DetermineChain()
 {
+    //Restart pressure if it's done
+    if(m_chain != NULL && m_chain->IsInterruptible())
+    {
+        delete m_chain;
+        m_chain = NULL;
+    }
     uint frame = m_state->m_memory->frame - m_startingFrame;
     //TODO: Implement a "bored" function
     if(frame <= 19)
@@ -27,7 +36,7 @@ void ShieldPressure::DetermineChain()
     { //dis gun b gud
         if(m_state->m_memory->player_one_action == ACTION::SHIELD)
         {
-            CreateChain2(Multishine, true);
+            CreateChain2(Multishine, crazyMultishine);
             m_chain->PressButtons();
             return;
         }

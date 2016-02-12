@@ -12,6 +12,8 @@ public:
     ~Recover();
     void DetermineChain();
 
+private:
+    uint m_startingFrame;
 };
 
 #endif

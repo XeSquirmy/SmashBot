@@ -205,7 +205,7 @@ void signalControllerReset(int sigtype)
 {
     Controller *m_controller = Controller::Instance();
     m_controller->emptyInput();
-    std::cout << "Received SIGINT: Reseting controller settings..." << std::endl;
+    std::cout << "\nReceived SIGINT: Reseting controller settings..." << std::endl;
     exit(sigtype);
 }
 
@@ -225,6 +225,7 @@ int main()
     //Main frame loop
     for(;;)
     {
+        
         //If we get a new frame, process it. Otherwise, keep reading memory
         if(!watcher->ReadMemory())
         {
@@ -232,7 +233,6 @@ int main()
         }
 
         //PrintState(state);
-
         current_menu = (MENU)state->m_memory->menu_state;
 
         //Spinloop until we get a new frame

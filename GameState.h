@@ -76,6 +76,7 @@ enum ACTION
     JUMPING_ARIAL_BACKWARD = 0x1c,
     FALLING = 0x1D,    //The "wait" state of the air.
     DEAD_FALL = 0x23, //Falling after up-b
+    DAMAGE_FALL = 0x26, //Tumble animation
     CROUCH_START = 0x27, //Going from stand to crouch
     CROUCHING = 0x28,
     CROUCH_END = 0x29, //Standing up from crouch
@@ -127,6 +128,11 @@ enum ACTION
     SHIELD_RELEASE = 0xb4,
     SHIELD_STUN = 0xb5,
     SHIELD_REFLECT = 0xb6,
+    DOWNBOUND_UP = 0xb7,
+    DOWNATTACK_UP = 0xbb,
+    DOWNBOUND_DOWN = 0xbf,
+    DOWNATTACK_DOWN = 0xc3,
+    FURAFURA = 0xd3, //Broken shield dizzy state
     GRAB = 0xd4,
     GRAB_RUNNING = 0xd6,
     ROLL_FORWARD = 0xe9,
@@ -214,6 +220,8 @@ public:
     double getStageEdgePosition();
     //This is the x coordinate of the edge, as you would be teetering while standing on the stage
     double getStageEdgeGroundPosition();
+    
+    double getStageHeight();
 
     bool isDamageState(ACTION);
 

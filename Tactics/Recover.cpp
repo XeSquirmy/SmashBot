@@ -14,6 +14,7 @@
 Recover::Recover()
 {
     m_chain = NULL;
+    m_startingFrame = 0;
 }
 
 Recover::~Recover()
@@ -35,38 +36,43 @@ void Recover::DetermineChain()
       m_state->m_memory->player_two_action == EDGE_CATCHING)
     {
 
-        bool isOnRight = m_state->m_memory->player_one_x > 0;
+        bool p1IsOnRight = m_state->m_memory->player_one_x > 0;
         bool movingRight = m_state->m_memory->player_one_speed_ground_x_self > 0;
+        //uint frame = m_startingFrame - m_state->m_memory->frame;
         //TODO: made up number 60. Revsit this.
         //Stand up if the enemy is far away, or if they're trying to steal the edge
+        //Stand up if the enemy is a lame ass player (10 seconds waiting doing nothing while edgestalling
         if(std::abs(m_state->m_memory->player_one_x - m_state->m_memory->player_two_x) > 60 ||
           (m_state->m_memory->player_one_action == LANDING_SPECIAL &&
-          isOnRight != m_state->m_memory->player_one_facing &&
-          movingRight == isOnRight &&
+          p1IsOnRight != m_state->m_memory->player_one_facing &&
+          movingRight == p1IsOnRight &&
           m_state->getStageEdgeGroundPosition() - std::abs(m_state->m_memory->player_one_x) < 10))
         {
             CreateChain2(EdgeAction, Controller::BUTTON_MAIN);
             m_chain->PressButtons();
             return;
         }
-
+        
         CreateChain(EdgeStall);
         m_chain->PressButtons();
+        frame = 0;
         return;
     }
 
     //TODO: This is only rudimentary recovery. Needs to be expanded
     //If we're off the stage...
-    if(std::abs(m_state->m_memory->player_two_x) > m_state->getStageEdgeGroundPosition() + .001)
+    if(std::abs(m_state->m_memory->player_two_x) > m_state->getStageEdgeGroundPosition() + .001 ||
+        m_state->m_memory->player_two_y < m_state->getStageHeight())
     {
-        bool isOnRight = m_state->m_memory->player_one_x > 0;
+        bool p2IsOnRight = m_state->m_memory->player_two_x > 0;
         if(m_state->m_memory->player_two_y > 0 && m_state->m_memory->player_two_y < 10 &&
             (m_state->m_memory->player_one_action != EDGE_HANGING || 
             m_state->m_memory->player_one_action != EDGE_ROLL_SLOW ||
             m_state->m_memory->player_one_action != EDGE_ATTACK_SLOW ||
             m_state->m_memory->player_one_action != EDGE_GETUP_SLOW))
         {
-            CreateChain3(Illusion, isOnRight, 0);
+            uint SHORTEN_LENGTH = 0;
+            CreateChain3(Illusion, p2IsOnRight, SHORTEN_LENGTH);
             m_chain->PressButtons();
             return;
         }

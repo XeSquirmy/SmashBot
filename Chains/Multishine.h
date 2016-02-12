@@ -9,7 +9,7 @@ class Multishine : public Chain
 
 public:
 
-    Multishine(bool hitlagPresent);
+    Multishine(uint shineType);
     ~Multishine();
     //Determine what buttons to press in order to execute our tactic
     void PressButtons();
@@ -17,7 +17,10 @@ public:
     
 private:
     
-    bool m_hitlagPresent;
+    uint m_shineType;
+    uint crazyMultishine;
+    uint shieldMultishine;
+    uint normalMultishine;
 };
 
 #endif
