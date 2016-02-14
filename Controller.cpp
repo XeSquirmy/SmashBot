@@ -45,7 +45,6 @@ Controller::Controller()
         }
         pipe_path = env_XDG_DATA_HOME;
         pipe_path += "/Pipes/cpu-level-11";
-        printf("the path for the pip_path is %s\n", pipe_path.c_str());
     }
     else
     {
