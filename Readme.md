@@ -59,7 +59,7 @@ The level 11 CPU is an AI that plays Super Smash Bros: Melee inside the Dolphin 
 
 ##Rough Setup Steps:
 
-###Works on: Ubuntu 15.04 (Maybe others, but that's all I've tested)
+###Works on: Ubuntu 15.04 (Maybe others, but that's all I've tested) also works with Mac OSX Yosemite
 
 1. Get a build of dolphin from source (dolphin version must be >= 4.0-8501 (commit afde6ae)). You can find it here:
 https://github.com/dolphin-emu/dolphin - If you want to play on the dolphin netplay build (7840), follow instructions from here - https://github.com/xesquirmy/dolphin-7840-memorywatcher
@@ -69,3 +69,8 @@ https://github.com/dolphin-emu/dolphin - If you want to play on the dolphin netp
 5. Run dolphin and start up Melee.
 6. Move focus over to the dolphin window. (Or else turn on background input on the controller) Just click on the dolphin window to do this.
 7. If using the Netplay Gecko code, exit the character select screen (CSS), and re-enter the CSS. The CPU will choose its own character. Select your character as Marth. Set the stage to Final Destination. Start the match.
+8. Set player 1 to Marth. The CPU will choose its own character.  Set the stage to Final Destination. Start the match.
+
+
+When working with OSX make the XDG_DATA_HOME variable equal to "/Users/ahmed/Library/Application Support/Dolphin"
+

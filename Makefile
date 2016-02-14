@@ -1,32 +1,26 @@
 CC=g++
 CFLAGS=-g -c -Wall -std=gnu++11
 LDFLAGS=-g -Wall -std=gnu++11
+EXECUTABLE = cpu
 
-SOURCES=cpu.cpp Controller.cpp GameState.cpp MemoryWatcher.cpp
-GOALS=Goals/*.cpp
-STRATS=Strategies/*.cpp
-TACTICS=Tactics/*.cpp
-CHAINS=Chains/*.cpp
+#DIRS = Goals Strategies Tactics Chains
 
-EXECUTABLE=cpu
+allFiles := $(foreach path,$(wildcard */*.cpp *.cpp), $(patsubst %, bin/%, $(path:%.cpp=%.o)))
+mains := bin/cpu.o
 
-all: goals strats tactics chains main
-	$(CC) $(LDFLAGS) *.o -o $(EXECUTABLE)
+all: cpu
 
-main:
-	$(CC) $(CFLAGS) $(SOURCES)
+myShit: $(allFiles)
+	$(CC) $(LDFLAGS) $(filter-out $(mains),$(allFiles)) bin/myStuff.o -o myStuff
 
-goals:
-	$(CC) $(CFLAGS) $(GOALS)
+cpu: $(allFiles)
+	$(CC) $(LDFLAGS) $(filter-out $(mains), $(allFiles)) bin/cpu.o -o $(EXECUTABLE)
 
-strats:
-	$(CC) $(CFLAGS) $(STRATS)
 
-tactics:
-	$(CC) $(CFLAGS) $(TACTICS)
-
-chains:
-	$(CC) $(CFLAGS) $(CHAINS)
+bin/%.o: %.cpp
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -f *.o */*.o *.d */*.d cpu
+	rm bin/*/*.o bin/*.o $(mains) cpu
+
+
