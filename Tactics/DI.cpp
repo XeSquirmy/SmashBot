@@ -16,18 +16,24 @@ DI::~DI()
 }
 
 void DI::DetermineChain()
-{
-    if(m_hitlagFramesLeftP2 > 0)
+{   
+    //Start SDI Section
+    if(m_hitlagFramesLeftP2 > 1)
     {
         if(m_isFacingRightP1 == true)
         {
-            CreateChain2(SmashDI, true);
+            CreateChain2(SmashDI, m_isFacingRightP1);
             m_chain->PressButtons();
         }
         if(m_isFacingRightP1 == false)
         {
-            CreateChain2(SmashDI, false);
+            CreateChain2(SmashDI, m_isFacingRightP1);
             m_chain->PressButtons();
         }
+    }
+    //End SDI, Begin optimal DI section
+    if(m_hitlagFramesLeftP2 == 1)
+    {
+        //TODO: implement Trajectory DI
     }
 }

@@ -26,7 +26,7 @@ void SmashDI::PressButtons()
 {
     uint frame = m_state->m_memory->frame - m_startingFrame;
     //hitlag_frames_left - 1 is done in order to establish DI correctly
-    for(uint i = 0; i <= m_state->m_memory->player_two_hitlag_frames_left - 1; i++)
+    for(uint i = 0; i <= m_state->m_memory->player_two_hitlag_frames_left; i++)
     {
         //Alternate each frame between UP and LEFT/RIGHT so we can SDI every frame of hitlag
         if(i % 2 == 0)
