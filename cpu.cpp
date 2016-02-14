@@ -234,7 +234,7 @@ int main()
 
         //PrintState(state);
         current_menu = (MENU)state->m_memory->menu_state;
-
+        
         //Spinloop until we get a new frame
         if(state->m_memory->frame != last_frame)
         {

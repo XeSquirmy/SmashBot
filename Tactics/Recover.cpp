@@ -55,7 +55,7 @@ void Recover::DetermineChain()
         
         CreateChain(EdgeStall);
         m_chain->PressButtons();
-        frame = 0;
+        //frame = 0;
         return;
     }
 

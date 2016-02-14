@@ -91,6 +91,11 @@ double GameState::getStageHeight()
             stageHeight = 0.0001;
             break;
         }
+        case YOSHIS_STORY:
+        {
+            stageHeight = -56;
+            break;
+        }
     }
     return stageHeight;
 }
