@@ -15,6 +15,10 @@ Recover::Recover()
 {
     m_chain = NULL;
     m_startingFrame = 0;
+    FULL = 0;
+    FULLSHORT = 1;
+    HALF = 2;
+    SHORT = 3;
 }
 
 Recover::~Recover()
@@ -65,16 +69,28 @@ void Recover::DetermineChain()
         m_state->m_memory->player_two_y < m_state->getStageHeight())
     {
         bool p2IsOnRight = m_state->m_memory->player_two_x > 0;
-        if(m_state->m_memory->player_two_y > 0 && m_state->m_memory->player_two_y < 10 &&
+        if(m_state->m_memory->player_two_y >= m_state->getStageHeight() && 
+            m_state->m_memory->player_two_y <= (m_state->getStageHeight() + 10) &&
             (m_state->m_memory->player_one_action != EDGE_HANGING || 
             m_state->m_memory->player_one_action != EDGE_ROLL_SLOW ||
             m_state->m_memory->player_one_action != EDGE_ATTACK_SLOW ||
             m_state->m_memory->player_one_action != EDGE_GETUP_SLOW))
         {
-            uint SHORTEN_LENGTH = 0;
-            CreateChain3(Illusion, p2IsOnRight, SHORTEN_LENGTH);
-            m_chain->PressButtons();
-            return;
+            if((std::abs(m_state->m_memory->player_two_x) + 
+                std::abs(m_state->getStageEdgeGroundPosition())) <= 
+                (std::abs(m_state->getStageEdgeGroundPosition())+30))
+            {
+                CreateChain3(Illusion, p2IsOnRight, SHORT);
+                m_chain->PressButtons();
+                return;
+            }
+            if((std::abs(m_state->m_memory->player_two_x) + 
+                std::abs(m_state->getStageEdgeGroundPosition())) > 100)
+            {
+                CreateChain3(Illusion, p2IsOnRight, FULL);
+                m_chain->PressButtons();
+                return;
+            }
         }
         else
         {
