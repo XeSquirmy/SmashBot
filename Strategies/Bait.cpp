@@ -342,18 +342,11 @@ void Bait::DetermineTactic()
         m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_NEUTRAL ||
         m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_LOW ||
         m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_TOP ||
-        m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_ROLL ||
-        m_state->m_memory->player_two_action == ACTION::DAMAGE_FALL)
+        m_state->m_memory->player_two_action == ACTION::DAMAGE_FLY_ROLL && 
+        !(m_state->m_memory->player_two_y < m_state->getStageHeight()))
     {
-        std::cout << "Attempting to Tech" << std::endl;
         CreateTactic(Techroll);
         m_tactic->DetermineChain();
-        return;
-    }
-    if(m_state->m_memory->player_two_action == ACTION::DOWNBOUND_UP ||
-        m_state->m_memory->player_two_action == ACTION::DOWNBOUND_DOWN)
-    {
-        std::cout << "I have failed at life" << std::endl;
         return;
     }
     //TODO: For now, just default to waiting if nothing else fits

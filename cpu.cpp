@@ -248,6 +248,7 @@ int main()
         }
 
         //PrintState(state);
+        //std::cout << "P1 X: " << state->m_memory->player_one_x << std::endl;
         current_menu = (MENU)state->m_memory->menu_state;
         
         //Spinloop until we get a new frame

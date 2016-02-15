@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 #include "Tech.h"
 
@@ -37,7 +38,10 @@ bool Tech::IsInterruptible()
         m_state->m_memory->player_two_action != DAMAGE_FLY_NEUTRAL ||
         m_state->m_memory->player_two_action != DAMAGE_FLY_LOW ||
         m_state->m_memory->player_two_action != DAMAGE_FLY_TOP ||
-        m_state->m_memory->player_two_action != DAMAGE_FLY_ROLL)
+        m_state->m_memory->player_two_action != DAMAGE_FLY_ROLL ||
+        m_state->m_memory->player_two_action == DOWNBOUND_UP ||
+        m_state->m_memory->player_two_action == DOWNBOUND_DOWN ||
+        (std::abs(m_state->m_memory->player_two_x) > (m_state->getStageEdgeGroundPosition() + 0.001)))
     {
         return true;
     }

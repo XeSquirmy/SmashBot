@@ -8,16 +8,20 @@ class Illusion : public Chain
 
 public:
    
-   Illusion(bool isFacingRight, uint shortenLength);
+   Illusion(bool isOnRight, uint shortenLength);
    ~Illusion();
    void PressButtons();
    bool IsInterruptible();
    
 private:
    
-   bool m_isFacingRight;
+   bool m_isOnRight;
    uint m_shortenLength;
    uint m_startingFrame;
+   uint FULL;
+   uint FULLSHORT;
+   uint HALF;
+   uint SHORT;
 
 };
 

@@ -14,6 +14,10 @@ public:
 
 private:
     uint m_startingFrame;
+    uint FULL;
+    uint FULLSHORT;
+    uint HALF;
+    uint SHORT;
 };
 
 #endif
