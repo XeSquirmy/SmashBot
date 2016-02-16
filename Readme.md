@@ -72,5 +72,5 @@ https://github.com/dolphin-emu/dolphin - If you want to play on the dolphin netp
 8. Set player 1 to Marth. The CPU will choose its own character.  Set the stage to Final Destination. Start the match.
 
 
-When working with OSX make the XDG_DATA_HOME variable equal to "/Users/ahmed/Library/Application Support/Dolphin"
+When working with OSX make the XDG_DATA_HOME variable equal to "/Users/USER/Library/Application Support/Dolphin"
 
