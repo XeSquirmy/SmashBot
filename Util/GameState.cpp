@@ -76,6 +76,30 @@ double GameState::getStageEdgeGroundPosition()
     return edge_position;
 }
 
+double GameState::getStageHeight()
+{
+    double stageHeight = 0;
+    switch(m_memory->stage)
+    {
+        case FINAL_DESTINATION:
+        {
+            stageHeight = 0.0001;
+            break;
+        }
+        case FOUNTAIN_OF_DREAMS:
+        {
+            stageHeight = 0.002875;
+            break;
+        }
+        case YOSHIS_STORY:
+        {
+            stageHeight = -56;
+            break;
+        }
+    }
+    return stageHeight;
+}
+
 bool GameState::isDamageState(ACTION action)
 {
     //Luckily, all the damage states are contiguous

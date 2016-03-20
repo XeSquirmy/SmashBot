@@ -13,6 +13,12 @@ public:
     void DetermineChain();
     std::string ToString(){return "Recover";};
 
+private:
+    uint m_startingFrame;
+    uint FULL;
+    uint FULLSHORT;
+    uint HALF;
+    uint SHORT;
 };
 
 #endif

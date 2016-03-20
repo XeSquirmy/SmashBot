@@ -212,6 +212,7 @@ enum STAGE
     FINAL_DESTINATION = 0x19,
     DREAMLAND = 0x1a,
     FOUNTAIN_OF_DREAMS = 0x8,
+    YOSHIS_STORY = 0x6,
 };
 
 class GameState {
